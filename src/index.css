@@ -1,0 +1,14 @@
+body {
+    background-color: #121212;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  a {
+    color: #ffc107;
+  }
+  
+  .card {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+  

@@ -1,32 +1,24 @@
-export const initialStore=()=>{
-  return{
-    message: null,
-    todos: [
-      {
-        id: 1,
-        title: "Make the bed",
-        background: null,
-      },
-      {
-        id: 2,
-        title: "Do my homework",
-        background: null,
-      }
-    ]
-  }
-}
+export const initialStore = () => ({
+  characters: [],
+  favorites: JSON.parse(localStorage.getItem("favorites")) || []
+});
 
-export default function storeReducer(store, action = {}) {
-  switch(action.type){
-    case 'add_task':
+export default function storeReducer(store, action) {
+  switch (action.type) {
+    case "SET_CHARACTERS":
+      return { ...store, characters: action.payload };
 
-      const { id,  color } = action.payload
+    case "ADD_FAVORITE":
+      const added = [...store.favorites, action.payload];
+      localStorage.setItem("favorites", JSON.stringify(added));
+      return { ...store, favorites: added };
 
-      return {
-        ...store,
-        todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
-      };
+    case "REMOVE_FAVORITE":
+      const removed = store.favorites.filter((item) => item !== action.payload);
+      localStorage.setItem("favorites", JSON.stringify(removed));
+      return { ...store, favorites: removed };
+
     default:
-      throw Error('Unknown action.');
-  }    
+      return store;
+  }
 }
